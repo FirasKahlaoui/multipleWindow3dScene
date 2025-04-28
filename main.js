@@ -56,9 +56,9 @@ if (new URLSearchParams(window.location.search).get("clear")) {
     // add a short timeout because window.offsetX reports wrong values before a short period
     setTimeout(() => {
       setupScene();
+      setupBackgrounds(); // Move this before setupWindowManager
       setupWindowManager();
       setupEventListeners();
-      setupBackgrounds();
       resize();
       updateWindowShape(false);
       render();
