@@ -1,20 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<title>3d example using three.js and multiple windows</title>
+	<title>3D Multi-Window Experience</title>
 	<script type="text/javascript" src="three.r124.min.js"></script>
 	<style type="text/css">
-		
-		*
-		{
+		* {
 			margin: 0;
 			padding: 0;
+			box-sizing: border-box;
+			font-family: Arial, sans-serif;
 		}
 
+		body {
+			overflow: hidden;
+			background-color: #000;
+		}
+
+		#ui-panel {
+			position: absolute;
+			top: 20px;
+			right: 20px;
+			background-color: rgba(0, 0, 0, 0.7);
+			color: white;
+			padding: 15px;
+			border-radius: 8px;
+			z-index: 100;
+			backdrop-filter: blur(5px);
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+			max-width: 250px;
+			transition: opacity 0.3s;
+		}
+
+		#ui-panel:hover {
+			opacity: 1;
+		}
+
+		#ui-panel h3 {
+			margin-bottom: 10px;
+			font-size: 16px;
+			text-align: center;
+		}
+
+		.control-group {
+			margin-bottom: 10px;
+		}
+
+		label {
+			display: block;
+			margin-bottom: 5px;
+			font-size: 12px;
+		}
+
+		select,
+		input[type="range"],
+		button {
+			width: 100%;
+			padding: 5px;
+			margin-bottom: 5px;
+			border-radius: 4px;
+			border: 1px solid #333;
+		}
+
+		button {
+			background-color: #3498db;
+			color: white;
+			border: none;
+			padding: 7px;
+			cursor: pointer;
+			transition: background-color 0.3s;
+		}
+
+		button:hover {
+			background-color: #2980b9;
+		}
+
+		.info {
+			font-size: 11px;
+			opacity: 0.7;
+			margin-top: 15px;
+		}
+
+		#window-count {
+			font-weight: bold;
+		}
+
+		#toggle-ui {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			background-color: rgba(0, 0, 0, 0.5);
+			color: white;
+			border: none;
+			border-radius: 50%;
+			width: 30px;
+			height: 30px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+			z-index: 101;
+		}
 	</style>
 </head>
+
 <body>
-	
+	<button id="toggle-ui">☰</button>
+
+	<div id="ui-panel">
+		<h3>3D Window Controls</h3>
+		<div class="control-group">
+			<label for="shape-select">Object Shape:</label>
+			<select id="shape-select">
+				<option value="cube">Cube</option>
+				<option value="sphere">Sphere</option>
+				<option value="torus">Torus</option>
+				<option value="cone">Cone</option>
+				<option value="cylinder">Cylinder</option>
+			</select>
+		</div>
+
+		<div class="control-group">
+			<label for="wireframe-toggle">Wireframe: <span id="wireframe-value">On</span></label>
+			<input type="range" id="wireframe-toggle" min="0" max="1" value="1" step="1">
+		</div>
+
+		<div class="control-group">
+			<label for="rotation-speed">Rotation Speed: <span id="rotation-value">1.0</span></label>
+			<input type="range" id="rotation-speed" min="0" max="2" value="1" step="0.1">
+		</div>
+
+		<div class="control-group">
+			<label for="background-select">Background:</label>
+			<select id="background-select">
+				<option value="black">Black</option>
+				<option value="gradient">Gradient</option>
+				<option value="stars">Stars</option>
+			</select>
+		</div>
+
+		<button id="new-window">Open New Window</button>
+		<button id="reset-window">Reset All Windows</button>
+
+		<div class="info">
+			Active Windows: <span id="window-count">1</span>
+			<br>
+			<small>Drag windows to see objects move</small>
+		</div>
+	</div>
+
 	<script type="module" src="main.js"></script>
 </body>
+
 </html>
